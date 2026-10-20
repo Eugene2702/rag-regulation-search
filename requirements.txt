@@ -1,0 +1,8 @@
+fastapi==0.154.0
+uvicorn[standard]==0.54.0
+qdrant-client==1.19.1
+sentence-transformers==6.1.0
+pydantic==2.14.1
+pydantic-settings==2.16.1
+python-multipart==0.0.32
+httpx==0.28.1
