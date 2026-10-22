@@ -2,51 +2,35 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
-from contextlib import asynccontextmanager  # <-- Новый импорт
+from contextlib import asynccontextmanager
+from app.llm import generate_answer # Импортируем нашу функцию
 
-# Модели данных
-class SearchQuery(BaseModel):
+class AskQuery(BaseModel):
     text: str
     top_k: int = 3
 
-class SearchResult(BaseModel):
-    score: float
-    text: str
-    acl: list[str]
+class AskResponse(BaseModel):
+    answer: str
+    sources: list[str]
 
-# Функция жизненного цикла (Lifespan)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # код до yield выполняется при запуске сервера
     print("Инициализация Qdrant и модели...")
     app.state.qdrant = QdrantClient(host="localhost", port=6333)
     app.state.model = SentenceTransformer("intfloat/multilingual-e5-base")
     print("Сервис готов к работе!")
-    
-    yield  # сервер работает и принимает запросы
-    
-    # код после yield выполняется при выключении сервера
-    print("Выключение сервера. Очистка ресурсов...")
-    # если бы были открытые соединения с БД, закрыли бы их здесь
+    yield
+    print("Выключение сервера...")
 
-# Инициализация приложения с передачей lifespan
 app = FastAPI(title="RAG Regulations Search", version="0.1.0", lifespan=lifespan)
 
-# Эндпоинты
-@app.get("/health")
-def health() -> dict:
-    return {"status": "ok"}
-
-@app.post("/search", response_model=list[SearchResult])
-def search(query: SearchQuery):
-    # Достаем модель и клиент из состояния приложения (app.state)
+@app.post("/ask", response_model=AskResponse)
+def ask(query: AskQuery):
     model = app.state.model
     qdrant = app.state.qdrant
     
-     # Кодируем вопрос (с префиксом query:)
+    # Ищем контекст
     query_vector = model.encode(f"query: {query.text}").tolist()
-    
-     # Ищем в Qdrant
     results = qdrant.query_points(
         collection_name="regulations",
         query=query_vector,
@@ -54,14 +38,29 @@ def search(query: SearchQuery):
         with_payload=True
     )
     
-    # Форматируем ответ
-    response = []
-    for hit in results.points:
-        response.append(
-            SearchResult(
-                score=hit.score,
-                text=hit.payload["text"],
-                acl=hit.payload.get("acl", [])
-            )
-        )
-    return response
+    # Собираем найденные куски в один текст
+    context_texts = [hit.payload["text"] for hit in results.points]
+    context = "\n\n".join(context_texts)
+    
+    if not context_texts:
+         return AskResponse(answer="В документах нет информации по этому вопросу.", sources=[])
+
+    # Формируем промпт по правилам Prompt Engineering
+    prompt = f"""Ты - полезный ассистент службы поддержки. Твоя задача - ответить на вопрос пользователя, опираясь на предоставленный контекст.
+        Внимательно прочитай контекст. Если ответ можно вывести из контекста (даже если слова сформулированы иначе, например "ждать" и "рассматривается"), обязательно дай этот ответ.
+
+        Если в контексте ВООБЩЕ нет нужной информации, напиши ровно одну фразу: "В документах нет информации."
+
+        Контекст:
+        {context}
+
+        Вопрос пользователя: {query.text}
+
+        Ответ:
+    """
+    
+    # Идем в LLM
+    print("Генерация ответа...")
+    answer = generate_answer(prompt)
+    
+    return AskResponse(answer=answer, sources=context_texts)
