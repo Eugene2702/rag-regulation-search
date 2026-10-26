@@ -1,7 +1,10 @@
 import httpx
+import os
 
-OLLAMA_URL = "http://localhost:11434/v1/chat/completions"
-MODEL_NAME = "qwen2.5:7b-instruct"
+
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "localhost")
+OLLAMA_URL = f"http://{OLLAMA_HOST}:11434/v1/chat/completions"
+MODEL_NAME = "qwen2.5:3b-instruct"
 
 def generate_answer(prompt: str) -> str:
     # Отправляет промпт в локальную модель Ollama и возвращает ответ

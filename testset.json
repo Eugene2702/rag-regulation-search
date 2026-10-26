@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "question": "Сколько времени рассматривается заявка на подключение обычного клиента?",
+    "answerable": true,
+    "expected_keywords": ["3", "трех", "рабочих"] 
+  },
+  {
+    "id": 2,
+    "question": "Сколько времени ждать VIP-клиенту?",
+    "answerable": true,
+    "expected_keywords": ["1", "один", "рабочий"]
+  },
+  {
+    "id": 3,
+    "question": "Что нужно предоставить физическому лицу для подключения?",
+    "answerable": true,
+    "expected_keywords": ["паспорт"]
+  },
+  {
+    "id": 4,
+    "question": "Какие документы нужны юридическому лицу?",
+    "answerable": true,
+    "expected_keywords": ["ИНН", "устав"]
+  },
+  {
+    "id": 5,
+    "question": "Что нужно для подключения интернета в частном доме?",
+    "answerable": true,
+    "expected_keywords": ["технический", "паспорт"]
+  },
+  {
+    "id": 6,
+    "question": "Сколько стоит базовый тариф?",
+    "answerable": true,
+    "expected_keywords": ["500"]
+  },
+  {
+    "id": 7,
+    "question": "Сколько стоит тариф на 500 мегабит?",
+    "answerable": true,
+    "expected_keywords": ["900"]
+  },
+  {
+    "id": 8,
+    "question": "Какая цена гигабитного тарифа?",
+    "answerable": true,
+    "expected_keywords": ["1500"]
+  },
+  {
+    "id": 9,
+    "question": "Сколько стоит срочное подключение?",
+    "answerable": true,
+    "expected_keywords": ["500"]
+  },
+  {
+    "id": 10,
+    "question": "Сколько стоит аренда роутера в месяц?",
+    "answerable": true,
+    "expected_keywords": ["100"]
+  },
+  {
+    "id": 11,
+    "question": "Какой размер залога за роутер?",
+    "answerable": true,
+    "expected_keywords": ["1000"]
+  },
+  {
+    "id": 12,
+    "question": "На каком тарифе роутер дают бесплатно?",
+    "answerable": true,
+    "expected_keywords": ["Максимум", "гигабит"]
+  },
+  {
+    "id": 13,
+    "question": "Какой график работы технической поддержки?",
+    "answerable": true,
+    "expected_keywords": ["24", "круглосуточно"]
+  },
+  {
+    "id": 14,
+    "question": "За сколько часов приедет мастер в городе при аварии?",
+    "answerable": true,
+    "expected_keywords": ["4", "четыре"]
+  },
+  {
+    "id": 15,
+    "question": "Сколько ждать мастера в сельской местности?",
+    "answerable": true,
+    "expected_keywords": ["24", "двадцати"]
+  },
+  {
+    "id": 16,
+    "question": "Что полагается VIP-клиентам кроме быстрого подключения?",
+    "answerable": true,
+    "expected_keywords": ["менеджер", "персональный"]
+  },
+  {
+    "id": 17,
+    "question": "В течение какого срока можно отказаться от услуг без штрафа?",
+    "answerable": true,
+    "expected_keywords": ["14", "четырнадцати"]
+  },
+  {
+    "id": 18,
+    "question": "Сколько дней идет возврат денег при отключении?",
+    "answerable": true,
+    "expected_keywords": ["10", "десяти"]
+  },
+  {
+    "id": 19,
+    "question": "Можно ли подключиться без паспорта?",
+    "answerable": true,
+    "expected_keywords": ["невозможно", "нет"]
+  },
+  {
+    "id": 20,
+    "question": "Нужен ли устав компании для подключения юрлица?",
+    "answerable": true,
+    "expected_keywords": ["да", "требуется", "нужен"]
+  },
+  {
+    "id": 21,
+    "question": "Какая погода завтра в Москве?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 22,
+    "question": "Есть ли у вас тариф для студентов?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 23,
+    "question": "Можно ли оплатить услуги картой МИР?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 24,
+    "question": "Предоставляете ли вы скидки для пенсионеров?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 25,
+    "question": "Какой номер лицензии у вашей компании?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 26,
+    "question": "Как настроить Wi-Fi на компьютере с Windows 11?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 27,
+    "question": "Можно ли подключить спутниковый интернет?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 28,
+    "question": "Сколько сотрудников работает в вашей компании?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 29,
+    "question": "Есть ли у вас тариф для умного дома?",
+    "answerable": false,
+    "expected_keywords": []
+  },
+  {
+    "id": 30,
+    "question": "Как связаться с отделом кадров?",
+    "answerable": false,
+    "expected_keywords": []
+  }
+]
